@@ -1,4 +1,4 @@
-import pdfplumber
+#import pdfplumber
 import os
 import re
 import numpy as np
@@ -7,41 +7,60 @@ import pandas as pd
 working_directory = "C:/Users/marti/OneDrive/Plocha/RA_work/public_goods_and_ethnic_het"
 os.chdir(working_directory)
 
-pdf = pdfplumber.open("test.pdf")
-page = pdf.pages[1]
-table = page.extract_table()
-pdf
-print(table)
-
-im = page.to_image()
-
-table_text = """1 Bechyně 3 1 9 4 4 4 16 66 8 2 8 6 1 6 5 У 2 Benešov 36 23 35 15 18 31 36 356 29 13 12 29 28 31 33 4 3 Beroun 48 36 65 12 26 27 113 3.727 217 26 1.414 100 60 216 35 5 4 Brandýs nad Labem . . 301 98 1.183 61 252 166 262 1.142 100 142 26 76 15 53 145 6 5 Brod, Český ~ 86 46 86 61 187 376 95 450 28 26 12 22 16 14 59 7 6 Brod, Německý ~ . 33 19 23 13 38 22 67 109 8 7 1 7 7 14 5 8 7 Čáslav 67 47 76 41 95 109 118 324 19 10 11 35 39 13 36 9 8 Dobříš 12 6 14 5 7 10 23 199 30 11 21 7 8 17 7 10 9 Habry 8 3 17 23 22 19 26 98 4 3 2 3 13 14 4 11 10 Hora, Kutná ~ 79 81 63 48 74 160 105 375 22 6 8 51 32 41 29 12 11 Hořovice 24 28 28 11 18 23 54 987 124 12 260 68 53 84 28 13 12 Humpolec 15 8 15 8 13 10 36 102 7 3 7 18 2 3 4 14 13 Chotěboř 12 16 12 7 14 33 39 94 9 4 2 5 20 7 9 15 14 Janovice, Uhlířské ~ . . 24 7 13 9 11 24 30 161 21 5 5 16 16 5 11 16 15 Jílové 23 10 29 8 16 22 27 201 16 8 6 16 2 6 17 17 16 Kamenice nad Lipou . . 8 4 5 3 6 5 7 84 3 — 6 15 2 12 5 18 17 Karlín*) 102 34 474 39 104 92 108 964 37 291 20 46 11 34 63 19 18 Kolín 135 79 111 295 257 916 180 551 48 24 7 47 33 53 50 20 19 Kostelec nad Černými Lesy . 8 12 14 8 11 29 34 111 16 8 3 8 5 5 3 21 20 Kouřim 30 32 35 37 69 463 85 249 14 12 6 26 18 13 23 22 21 Královice, Dolní ~ . 13 13 5 5 5 8 14 110 9 7 1 6 7 7 7 23 22 Ledeč nad Sázavou . . . 11 10 19 11 17 18 29 120 4 1 2 5 13 5 11 24 23 Milevsko 13 2 9 1 2 2 9 112 9 6 2 9 4 7 12 25 24 Mirovice 5 1 4 2 1 — 13 74 9 4 7 9 7 8 7 26 25 Neveklov 4 2 10 2 2 6 9 75 4 2 — 8 3 12 4 27 26 Pacov 15 6 6 3 10 3 19 65 4 2 2 3 5 3 9 28 27 Pelhřimov 16 7 17 4 4 9 24 107 18 2 6 7 7 11 3 29 28 Počátky 2 2 7 2 2 5 7 66 5 3 4 10 2 4 2 30 29 Polná 4 8 4 — 5 5 13 21 — — — 3 4 1 1 31 Příbram 23 17 20 8 12 8 45 546 76 7 30 27 72 56 29 32 Přibyslav 3 12 1 3 6 5 16 35 3 — 3 2 2 1 1 33 Říčany*) 68 35 97 32 45 38 73 527 46 31 8 38 14 35 45 34 Sedlčany 4 4 9 4 4 5 14 169 12 6 5 11 5 10 26 35 Sedlec 7 5 13 2 1 5 27 105 8 2 3 8 9 3 9 36 Smíchov*) 46 14 120 16 25 45 112 2.920 434 436 44 81 29 74 95 37 Soběslav 7 2 11 7 8 9 11 64 5 2 8 10 4 6 3 38 Stoky 5 5 2 1 3 43 45 34 5 3 — 1 3 — 1 39 Tábor 30 31 27 7 23 16 58 401 22 7 12 82 30 27 18 40 Vlašim .... • . . . 30 13 12 4 11 16 35 169 15 5 7 19 10 11 18 41 Votice 22 7 14 5 8 4 38 167 10 4 10 17 19 8 6 42 Vožice, Mladá ~ . . . . 6 8 12 1 9 5 24 90 1 4 1 4 5 3 9 43 Zbraslav*) 53 35 78 34 38 33 84 769 57 39 54 63 19 38 48 44"""
-
-table_text_2 = """Hlavní město Praha . . 3.801 2.896 4.826 1.640 2.684 2.738 6.082 36.097 3.565 1.965 1.804 2.863 1.216 3.228 2.565 Župa I. Praha 1.441 829 2.804 862 1.483 2.829 2.180 17.096 1.516 1.186 2.046 1024 654 971 935 Bechyně 3 1 9 4 4 4 16 66 8 2 8 6 1 6 5 Benešov 36 23 35 15 18 31 36 356 29 13 12 29 28 31 33 Beroun 48 36 65 12 26 27 113 3.727 217 26 1.414 100 60 216 35 Brandýs nad Labem . . 301 98 1.183 61 252 166 262 1.142 100 142 26 76 15 53 145 Brod, Český ~ 86 46 86 61 187 376 95 450 28 26 12 22 16 14 59 Brod, Německý ~ . 33 19 23 13 38 22 67 109 8 7 1 7 7 14 5 Čáslav 67 47 76 41 95 109 118 324 19 10 11 35 39 13 36 Dobříš 12 6 14 5 7 10 23 199 30 11 21 7 8 17 7 Habry 8 3 17 23 22 19 26 98 4 3 2 3 13 14 4 Hora, Kutná ~ 79 81 63 48 74 160 105 375 22 6 8 51 32 41 29 Hořovice 24 28 28 11 18 23 54 987 124 12 260 68 53 84 28 Humpolec 15 8 15 8 13 10 36 102 7 3 7 18 2 3 4 Chotěboř 12 16 12 7 14 33 39 94 9 4 2 5 20 7 9 Janovice, Uhlířské ~ . . 24 7 13 9 11 24 30 161 21 5 5 16 16 5 11 Jílové 23 10 29 8 16 22 27 201 16 8 6 16 2 6 17 Kamenice nad Lipou . . 8 4 5 3 6 5 7 84 3 — 6 15 2 12 5 Karlín*) 102 34 474 39 104 92 108 964 37 291 20 46 11 34 63 Kolín 135 79 111 295 257 916 180 551 48 24 7 47 33 53 50 Kostelec nad Černými Lesy . 8 12 14 8 11 29 34 111 16 8 3 8 5 5 3 Kouřim 30 32 35 37 69 463 85 249 14 12 6 26 18 13 23 Královice, Dolní ~ . 13 13 5 5 5 8 14 110 9 7 1 6 7 7 7 Ledeč nad Sázavou . . . 11 10 19 11 17 18 29 120 4 1 2 5 13 5 11 Milevsko 13 2 9 1 2 2 9 112 9 6 2 9 4 7 12 Mirovice 5 1 4 2 1 — 13 74 9 4 7 9 7 8 7 Neveklov 4 2 10 2 2 6 9 75 4 2 — 8 3 12 4 Pacov 15 6 6 3 10 3 19 65 4 2 2 3 5 3 9 Pelhřimov 16 7 17 4 4 9 24 107 18 2 6 7 7 11 3 Počátky 2 2 7 2 2 5 7 66 5 3 4 10 2 4 2 Polná 4 8 4 — 5 5 13 21 — — — 3 4 1 1 Příbram 23 17 20 8 12 8 45 546 76 7 30 27 72 56 29 Přibyslav 3 12 1 3 6 5 16 35 3 — 3 2 2 1 1 Říčany*) 68 35 97 32 45 38 73 527 46 31 8 38 14 35 45 Sedlčany 4 4 9 4 4 5 14 169 12 6 5 11 5 10 26 Sedlec 7 5 13 2 1 5 27 105 8 2 3 8 9 3 9 Smíchov*) 46 14 120 16 25 45 112 2.920 434 436 44 81 29 74 95 Soběslav 7 2 11 7 8 9 11 64 5 2 8 10 4 6 3 Stoky 5 5 2 1 3 43 45 34 5 3 — 1 3 — 1 Tábor 30 31 27 7 23 16 58 401 22 7 12 82 30 27 18 Vlašim .... • . . . 30 13 12 4 11 16 35 169 15 5 7 19 10 11 18 Votice 22 7 14 5 8 4 38 167 10 4 10 17 19 8 6 Vožice, Mladá ~ . . . . 6 8 12 1 9 5 24 90 1 4 1 4 5 3 9 Zbraslav*) 53 35 78 34 38 33 84 769 57 39 54 63 19 38 48"""
-
-replaced = re.sub('\d+( )\d+', '×', table_text)
-print(replaced)
+class DigiTable():
+    def __init__(self, text=table_text):
+        self.text = text
+    def make_table(self, n_cols=14):
+        replaced = re.sub(' (?=\d+|—)|(?<=\d|—) ', '×', self.text, flags=re.IGNORECASE)
+        split_string = replaced.split(sep='×')
+        n_rows = len(split_string)//n_cols
+        list_of_rows = []
+        for row in range(n_rows):
+            list_of_rows.append(split_string[row*n_cols:(row+1)*n_cols])
+        arr = np.array(list_of_rows)
+        return pd.DataFrame(arr)
 
 
-replaced = re.sub(' (?=\d+|—)|(?<=\d|—) ', '×', table_text_2, flags=re.IGNORECASE)
+table_text = """Polička 23.278 4 8.709 — 3 — 1 — — 1 31.996 314 32.310 Přelouč 22.438 3 42 1 3 1 1 1 — — 22.490 129 22.619 Skuteč 20.765 5 19 — — — — — — — 20.789 91 2U.880 Üsti nad Orlicí 29.714 8 4.903 2 17 16 2 14 — — 34.676 191 34.867 Žamberk 28.328 9 258 45 — 7 4 — — 1 28.652 131 28.783 Župa III. Hradec Králové. . . . 360.024 131 141.805 446 294 82 14 1 — 26 502.823 3.933 506.756 Broumov 1.957 — 24.747 2 10 5 — — — — 26.721 640 27.361 Bydžov, Nový ~ 31.464 5 90 — 13 1 — — — 1 31.574 98 31.672 Dvůr Králové nad Labem .... 17.670 6 11.862 8 41 — — — — — 29.582 234 29.816 Hořice 29.651 3 120 1 11 3 1 — ■ 1—’ 29.790 73 29.863 Hostinné 1.280 — 17.197 — 14 7 — — — 1 18.499 196 18.695 Hradec Králové 57.868 61 414 96 7 5 4 — — 8 58.463 365 58.828 Chlumec nad Cidlinou 23.901 8 51 1 — 2 — — — — 23.963 94 24.057 Jaroměř 31.203 14 2.752 310 2 7 4 — — — 34.292 432 34.724 Maršov 165 — 8.802 — — 1 — — — ‘ 8.968 105 9.073 Město, Nové ~ nad Metují . . . 17.891 3 4.229 1 — 2 — — — — 22.126 98 22.224 Náchod 38.259 8 352 1 124 7 3 — — 2 38.756 199 38.955 Nechanice 17.813 2 10 1 — — — — — — 17.826 127 17.953 Opočno 24.299 9 139 • 1 3 — — — 1 24.452 95 24.547 Police nad Metují 11.351 1 202 — — — — — — — 11.554 57 11.611 Rokytnice v Ori. Horách .... 823 — 12.448 1 8 1 — — — — 13.281 193 13.474 Rychnov nad Kněžnou 20.452 4 269 1 — 1 1 — — 2 20.730 93 20.823 Skalice, Česká ~ 13.644 2 121 ' — 1 — ' — 3 13.771 42 13.813 Teplice nad Metují 427 — 11.067 1 5 — — — — - 11.500 86 11.586 Trutnov 3.925 1 37.926 19 54 25 1 — — 6 41.957 507 42.464 Üpice 14.874 4 329 7 4 4 — 1 — — 15.223 41 15.264 Žacléř 1.107 — 8.678 1 — 7 — — — 2 9.795 158 9.953 Župa IV. Mladá Boleslav .... 500.746 226 224.715 538 386 93 28 6 — 46 726.784 9.033 735.817 Bělá pod Bezdězem 11.309 3 2.195 1 — 3 — — — — 13.511 81 13.592 Benátky, Nové ~ 28.780 7 205 41 — — — — — 4 29.037 495 29.532 Boleslav, Mladá ~ 48.476 69 542 200 19 5 4 1 — 5 49.321 384 49.705 Brod, Železný ~ 22.584 5 260 — — 1 1 — — — 22.851 56 22.907 Dub, Český ~ 12.680 1 1.106 2 — — — — — — 13.789 41 13.830 Frýdlant 1.166 1 29.478 7 5 3 1 — — 2 30.663 927 31.590 Hradiště, Mnichovo ~ 24.160 11 229 1 — 2 2 — — 2 24.407 147 24.554 Jablonec nad Nisou 7.089 6 51.416 4 95 16 — L_ — 5 58.631 1.271 59.902 Jičín 31.565 13 448 84 9 7 4 4 — 4 32.138 159 32.297 Jilemnice 22.438 5 1.141 — — — 2 — — — 23.586 39 23.625 Libáň 19.850 3 59 11 4 1 — — — 1 19.929 124 20.053 Liberec 15.170 35 78.268 85 157 21 6 — — 7 93.749 3.017 96.766 v tom: Liberec město 4.894 14 27.929 38 130 9 3 — — 3 33.020 1.965 34.985 Lomnice nad Popelkou 16.955 1 51 3 — — 2 — — ] 17.013 29 17.042 Mělník 43.351 18 138 2 11 7 2 — — — 43.529 262 43.791 Městec Králové 20.244 1 28 12 14 1 — — — — 20.300 100 20.400 Město, Nové ~ pod Smrkem . . 271 — 9.083 — — 3 — — — — 9.357 278 9.635 Nymburk 32.878 22 111 2 26 5 — — — 3 33.047 249 33.296 Рака, Nová ~ 27.986 2 2.377 1 6 1 — — — — 30.373 72 30.445 Poděbrady 30.378 9 53 4 — 3 — — — 2 30.449 217 30.666 Rokytnice nad Jizerou 974 — 7.023 — 1 — — — — — 7.998 62 8.060 Semily 16.956 1 275 1 2 — — — — 1 17.236 45 17.281 Sobotka 15.387 1 27 1 — 4 — — — 2 15.422 55 15.477 Tanvald 6.671 3 19.268 1 — 3 4 — — 3 25.953 352 26.305 Turnov 30.810 8 373 71 9 6 — 1 __ . 2 31.280 160 31.440 Vrchlabí 2.160 — 20.074 1 23 1 — — — 1 22.260 396 22.650 Vysoké nad Jizerou 10.458 1 487 3 5 — — — — 1 10.955 15 10.970 Župa V. Česká Lipa 59.524 110 489.129 567 606 185 18 3 1 74 550.217 15.894 566.111 Benešov nad Plouínicí 200 20.732 1 1 20.934 132 21.066 Bor u České Lípy . I 1.794 1 18.320 2 1 10 — — — — 20.128 372[ 20.500"""
+
+#replaced = re.sub('\d+( )\d+', '×', table_text)
+#print(replaced)
+
+def make_table(text=table_text, n_cols=16):
+    replaced = re.sub(' (?=\d+|—)|(?<=\d|—) ', '×', text, flags=re.IGNORECASE)
+    split_string = replaced.split(sep='×')
+    n_rows = len(split_string)//n_cols
+    list_of_rows = []
+    for row in range(n_rows):
+        list_of_rows.append(split_string[row*n_cols:(row+1)*n_cols])
+
+dtable = DigiTable(table_text)
+DigiTable(table_text).make_table()
+
+
+
+replaced = re.sub(' (?=\d+|—)|(?<=\d|—) ', '×', table_text, flags=re.IGNORECASE)
 print(replaced)
 
 split_string = replaced.split(sep='×')
 
-n_cols = 16
-split_string[:17]
+n_cols = 14
+split_string[:14]
 
-split_string.__len__()
+#split_string.__len__()
 n_rows = len(split_string)//n_cols
 list_of_rows = []
 for row in range(n_rows):
     list_of_rows.append(split_string[row*n_cols:(row+1)*n_cols])
 
-list_of_rows
-741/18
-table_text.replace()
-table_text.split(' ')
+from scipy.stats import norm
+(1 - norm.cdf(1.42)) *2
+
+#list_of_rows
+#741/18
+#table_text.replace()
+#table_text.split(' ')
 arr = np.array(list_of_rows)
-print(arr)
+#print(arr)
 
 pd.DataFrame(arr)
